@@ -9,6 +9,7 @@ h2 {
 
 button {
     border-radius: 3px;
+    padding: 8px 15px;
     border: none;
     outline: none;
 }
