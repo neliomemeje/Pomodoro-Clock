@@ -86,24 +86,25 @@ function App() {
       <div className="underline #e53935 red darken-1"></div>
       <div className="main">
         <div className="dual-container">
-          <Length
-            title={"Break length"}
+          <Break
+            // title={"Break length"}
             changeTime={changeTime}
             type={"Break"}
             time={breakTime}
             formatTime={formatTime}
           />
-          <Length
-            title={"Session length"}
+          <Session
+            // title={"Session length"}
             changeTime={changeTime}
             type={"Session"}
             time={sessionTime}
             formatTime={formatTime}
           />
         </div>
-        <h4>{onBreak ? "Break Time" : "Session Time"}</h4>
-        <h1>{formatTime(displayTime)}</h1>
+        <h4 id="timer-label">{onBreak ? "Break Time" : "Session Time"}</h4>
+        <h1 id="time-left">{formatTime(displayTime)}</h1>
         <button
+          id="start_stop"
           className="btn-large #e53935 red darken-1"
           onClick={controlTime}
         >
@@ -113,7 +114,11 @@ function App() {
             <i className="material-icons">play_circle_filled</i>
           )}
         </button>
-        <button className="btn-large #e53935 red darken-1" onClick={renewTime}>
+        <button
+          id="reset"
+          className="btn-large #e53935 red darken-1"
+          onClick={renewTime}
+        >
           <i className="material-icons">autorenew</i>
         </button>
       </div>
@@ -121,20 +126,47 @@ function App() {
   );
 }
 
-function Length({ title, changeTime, type, time, formatTime }) {
+function Break({ changeTime, type, time, formatTime }) {
   return (
     <div className="session-container">
-      <h4>{title}</h4>
+      <h4 id="break-label">Break length</h4>
       <div className="time-sets">
         <button
-          className="#e53935 red darken-1"
+          id="break-decrement"
+          className="#e53935 red darken-1 arrow"
           onClick={() => changeTime(-60, type)}
         >
           <i className="material-icons">arrow_downward</i>
         </button>
-        <h3>{formatTime(time)}</h3>
+        <h3 id="break-length">{formatTime(time)}</h3>
         <button
-          className="#e53935 red darken-1"
+          id="break-increment"
+          className="#e53935 red darken-1 arrow"
+          onClick={() => changeTime(+60, type)}
+        >
+          <i className="material-icons">arrow_upward</i>
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function Session({ changeTime, type, time, formatTime }) {
+  return (
+    <div className="session-container">
+      <h4 id="session-label">Session Length</h4>
+      <div className="time-sets">
+        <button
+          id="session-decrement"
+          className="#e53935 red darken-1 arrow"
+          onClick={() => changeTime(-60, type)}
+        >
+          <i className="material-icons">arrow_downward</i>
+        </button>
+        <h3 id="session-length">{formatTime(time)}</h3>
+        <button
+          id="session-increment"
+          className="#e53935 red darken-1 arrow"
           onClick={() => changeTime(+60, type)}
         >
           <i className="material-icons">arrow_upward</i>
